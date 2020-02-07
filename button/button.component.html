@@ -24,7 +24,43 @@
           </button>
         </div>
         <div class="modal-body">
-            <ul ng-if="ShowAvailableRooms">
+          <div class="table-responsive">
+            <table class="table table-hover" ng-if="ShowAvailableRooms">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Room Number</th>
+                  <th> Date </th>
+                  <th> Edit Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="room in displayRooms">
+                  <td>{{room }}</td>
+                  <td>Date</td>
+                  <td><button class="btn btn-warning" ng-click="checkIn($event.target.value)" value={{room}}>Check-In</button></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="table table-hover"  ng-if="ShowOccupiedRooms">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Room Number</th>
+                  <th> Date </th>
+                  <th> Edit Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="room in displayRooms">
+                  <td>{{room }}</td>
+                  <td>Date</td>
+                  <td><button class="btn btn-warning" ng-click="checkOut($event.target.value)" value={{room}}>Check-Out</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+            <!-- <ul ng-if="ShowAvailableRooms">
                 <li ng-repeat="room in displayRooms">
                     <div class="row m-2">
                         <div class="col-md-6">{{room }}</div>
@@ -33,20 +69,20 @@
                         </div>
                     </div>
                 </li>
-            </ul>
-            <ul ng-if="ShowOccupiedRooms">
+            </ul> -->
+            <!-- <ul ng-if="ShowOccupiedRooms">
                 <li ng-repeat="room in displayRooms">
                     <div class="row m-2">
                         <div class="col-md-6">{{room }}</div>
                         <div class="col-md-6">
-                            <button class="btn btn-warning" ng-click="checkOut()">Check-Out</button>
+                            <button class="btn btn-warning" ng-click="checkOut($event.target.value)" value={{room}}>Check-Out</button>
                         </div>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveChange()">Save changes</button>
         </div>
       </div>
     </div>
