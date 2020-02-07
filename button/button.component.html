@@ -1,0 +1,81 @@
+<div class="row m-4">
+    <div class="col-md-6 ml-auto mr-auto text-center">
+        <button class="btn btn-success" ng-click="showModal('AR')">Show Available Rooms </button>
+    </div>
+    <div class="col-md-6 ml-auto mr-auto text-center">
+        <button class="btn btn-success" ng-click="showModal('OR')">Show Occupied Rooms </button>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ShowRoomsModal" hidden id="showModalBtn">
+    Launch demo modal
+</button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="ShowRoomsModal" tabindex="-1" role="dialog" aria-labelledby="ShowRoomsModalTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 ng-if="ShowOccupiedRooms" class="modal-title" id="ShowRoomsModalTitle">Occupied Rooms</h5>
+          <h5 ng-if="ShowAvailableRooms" class="modal-title" id="ShowRoomsModalTitle">Available Rooms</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ul ng-if="ShowAvailableRooms">
+                <li ng-repeat="room in displayRooms">
+                    <div class="row m-2">
+                        <div class="col-md-6">{{room }}</div>
+                        <div class="col-md-6">
+                            <button class="btn btn-warning" ng-click="checkIn($event.target.value)" value={{room}}>Check-In</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul ng-if="ShowOccupiedRooms">
+                <li ng-repeat="room in displayRooms">
+                    <div class="row m-2">
+                        <div class="col-md-6">{{room }}</div>
+                        <div class="col-md-6">
+                            <button class="btn btn-warning" ng-click="checkOut()">Check-Out</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATE TIME MODAL PROMPT -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dateTimeModal" hidden id="showDateTimeModal">
+    Launch DAte Time modal
+</button>
+  
+  <!-- Modal -->
+  <div class="modal fade bg-dark" id="dateTimeModal" tabindex="-1" role="dialog" aria-labelledby="dateTimeModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dateTimeModalLabel">Select Date</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <datepicker date-format="dd-MMMM-y" date-only future-only>
+                <input class="form-control-lg" ng-model="date" type="text" placeholder="Select Date of CheckIn" />
+            </datepicker>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
