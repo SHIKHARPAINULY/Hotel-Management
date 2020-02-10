@@ -7,44 +7,64 @@ angular.module('HotelApp' , ['720kb.datepicker']).component('buttonCtrl' , {
     controller : function ($scope , $rootScope) {
         $scope.ShowAvailableRooms = false;
         $scope.ShowOccupiedRooms = false;
+        $scope.date = new Date().toLocaleDateString('en-GB');
         $scope.HotelRoomsArray = {
-            OccupiedRoom : ['F1b', 'F1c', 'F1d', 'F2d', 'F2e' , 'F3a' , 'F3c', 'F3d'],
-            AvailableRoom : ['F1a' , 'F1e' , 'F2a' , 'F2b', 'F2c' ,'F3b', 'F3e']
+            OccupiedRoom : [
+                {'roomNumber' : 'F1b', 'Date' : '11-02-2020'},
+                {'roomNumber' : 'F1c', 'Date' : '4-02-2020'},
+                
+            ],
+            AvailableRoom : [
+                {'roomNumber' : 'F1a', 'Date' : 'NA'},
+                {'roomNumber' :'F1e', 'Date' : 'NA'},
+                {'roomNumber' : 'F2a' , 'Date' : 'NA'},
+                {'roomNumber' : 'F2c', 'Date' : 'NA'},
+                {'roomNumber' : 'F3b', 'Date' : 'NA'},
+                {'roomNumber' : 'F3e', 'Date' : 'NA'},
+                {'roomNumber' : 'F1d', 'Date' : 'NA'},
+                {'roomNumber' : 'F2d', 'Date' : 'NA'},
+                {'roomNumber' : 'F2e', 'Date' : 'NA'},
+                {'roomNumber' : 'F3a', 'Date' : 'NA'},
+             ]
         };
 
         $scope.showModal = function (val) {
             $scope.displayRooms = [];
             val == 'AR' ? ($scope.RoomSelection = 'AvailableRoom' , $scope.displayRooms = $scope.HotelRoomsArray.AvailableRoom , $scope.ShowAvailableRooms = true, $scope.ShowOccupiedRooms = false ) 
                         : ($scope.RoomSelection = 'OccupiedRoom' ,  $scope.displayRooms = $scope.HotelRoomsArray.OccupiedRoom ,  $scope.ShowOccupiedRooms = true , $scope.ShowAvailableRooms = false)  ; 
-            console.log('the rooms to be displayed are : ' ,$scope.displayRooms );
             $("#showModalBtn").click();
 
         },
-
+        $scope.saveDate = function () {
+            $scope.HotelRoomsArray.AvailableRoom.filter( Element => {
+               if ( Element.roomNumber == $scope.RoomSelected ) {
+                    Element.Date = $scope.date ;
+                    return;
+               }
+            });
+        },
         $scope.checkIn = function (val) {
-            $scope.RoomSelected = val;
+            $scope.RoomSelected = JSON.parse(val);
             $("#showDateTimeModal").click();
         },
          $scope.checkOut = function (val) {
-            $scope.RoomSelected = val;
-             console.log('the system is going to check you out ');
+            $scope.RoomSelected = JSON.parse(val);
         },
         $scope.saveChange =  function () {
-            console.log( ' the selction room is : ' , $scope.RoomSelected && $scope.RoomSelection );
             if( $scope.RoomSelection  == 'AvailableRoom' ) {
-                $scope.HotelRoomsArray.AvailableRoom =  $scope.HotelRoomsArray.AvailableRoom.filter(ele => ele != $scope.RoomSelected)
-                console.log('the new selection for room : ' ,  $scope.HotelRoomsArray.AvailableRoom );
+                $scope.HotelRoomsArray.AvailableRoom =  $scope.HotelRoomsArray.AvailableRoom.filter(ele =>  ele.roomNumber != $scope.RoomSelected.roomNumber);
+                $scope.RoomSelected.Date = $scope.date;
+                console.log("the new value of date is being changed &  : " ,  $scope.RoomSelected);
                 $scope.HotelRoomsArray.OccupiedRoom.push($scope.RoomSelected);
-                console.log('the new selection for room : ' ,$scope.HotelRoomsArray.OccupiedRoom );
             }else if( $scope.RoomSelection  == 'OccupiedRoom' ) {
-                $scope.HotelRoomsArray.OccupiedRoom = $scope.HotelRoomsArray.OccupiedRoom.filter( ele => ele != $scope.RoomSelected);
-                console.log('the new selection for room : ' ,$scope.HotelRoomsArray.OccupiedRoom );
+                $scope.HotelRoomsArray.OccupiedRoom = $scope.HotelRoomsArray.OccupiedRoom.filter( ele => ele.roomNumber != $scope.RoomSelected.roomNumber);
                 $scope.HotelRoomsArray.AvailableRoom.push($scope.RoomSelected);
-                console.log('the new selection for room : ' ,  $scope.HotelRoomsArray.AvailableRoom );
             }
         },
         $scope.$watch('HotelRoomsArray' , function(newVal, oldVal){
-            console.log('the  values changed are', oldVal , newVal);
+            if( newVal != oldVal) {
+                $scope.HotelRoomsArray =  $scope.HotelRoomsArray;
+            }
 
         }, true);
     }

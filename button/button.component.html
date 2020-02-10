@@ -29,14 +29,14 @@
               <thead class="thead-dark">
                 <tr>
                   <th>Room Number</th>
-                  <th> Date </th>
+                  <th>CheckIn Date </th>
                   <th> Edit Option</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="room in displayRooms">
-                  <td>{{room }}</td>
-                  <td>Date</td>
+                  <td>{{room.roomNumber }}</td>
+                  <td>{{room.Date }}</td>
                   <td><button class="btn btn-warning" ng-click="checkIn($event.target.value)" value={{room}}>Check-In</button></td>
                 </tr>
               </tbody>
@@ -46,40 +46,19 @@
               <thead class="thead-dark">
                 <tr>
                   <th>Room Number</th>
-                  <th> Date </th>
+                  <th>CheckedIn Date </th>
                   <th> Edit Option</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="room in displayRooms">
-                  <td>{{room }}</td>
-                  <td>Date</td>
+                  <td>{{room.roomNumber }}</td>
+                  <td>{{room.Date }}</td>
                   <td><button class="btn btn-warning" ng-click="checkOut($event.target.value)" value={{room}}>Check-Out</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-            <!-- <ul ng-if="ShowAvailableRooms">
-                <li ng-repeat="room in displayRooms">
-                    <div class="row m-2">
-                        <div class="col-md-6">{{room }}</div>
-                        <div class="col-md-6">
-                            <button class="btn btn-warning" ng-click="checkIn($event.target.value)" value={{room}}>Check-In</button>
-                        </div>
-                    </div>
-                </li>
-            </ul> -->
-            <!-- <ul ng-if="ShowOccupiedRooms">
-                <li ng-repeat="room in displayRooms">
-                    <div class="row m-2">
-                        <div class="col-md-6">{{room }}</div>
-                        <div class="col-md-6">
-                            <button class="btn btn-warning" ng-click="checkOut($event.target.value)" value={{room}}>Check-Out</button>
-                        </div>
-                    </div>
-                </li>
-            </ul> -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveChange()">Save changes</button>
@@ -104,13 +83,13 @@
           </button>
         </div>
         <div class="modal-body text-center">
-            <datepicker date-format="dd-MMMM-y" date-only future-only>
+            <datepicker date-format="dd/MM/y" date-only future-only>
                 <input class="form-control-lg" ng-model="date" type="text" placeholder="Select Date of CheckIn" />
             </datepicker>
         </div>
         <div class="modal-footer">
           <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveDate()">Save changes</button>
         </div>
       </div>
     </div>
