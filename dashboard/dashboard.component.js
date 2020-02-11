@@ -1,6 +1,6 @@
-angular.module('HotelApp' , ['720kb.datepicker', 'factoryService']).component('dashCtrl' , {
+angular.module('HotelApp' , ['720kb.datepicker', 'factoryService', 'HotelError']).component('dashCtrl' , {
     restrict:'E',
-    templateUrl:'dashboard/dashboard.component.html',
+    templateUrl:'./dashboard/dashboard.component.html',
     bindings : {
         showRoom : '<'
     },
@@ -8,6 +8,8 @@ angular.module('HotelApp' , ['720kb.datepicker', 'factoryService']).component('d
         console.log('the buttonCtrl controller executed' , dataService);
         $scope.ShowAvailableRooms = false;
         $scope.ShowOccupiedRooms = false;
+        $scope.roomError = false;
+        $scope.RoomSelected = '';
         $scope.date = new Date().toLocaleDateString('en-GB');
         $scope.showModal = function (val) {
             $scope.displayRooms = [];
@@ -28,6 +30,8 @@ angular.module('HotelApp' , ['720kb.datepicker', 'factoryService']).component('d
                 $scope.RoomSelected = JSON.parse(val);
                 $("#showDateTimeModal").click();
             } else {  
+                $rootScope.errorRoomNumber = $scope.RoomSelected.roomNumber;
+                $scope.roomError = true;
                 $("#OneAtATimeModal").click();
             }
         },
@@ -35,6 +39,8 @@ angular.module('HotelApp' , ['720kb.datepicker', 'factoryService']).component('d
             if( $scope.RoomSelected == undefined || $scope.RoomSelected == '' ) {
                 $scope.RoomSelected = JSON.parse(val);
             } else {  
+                $rootScope.errorRoomNumber = $scope.RoomSelected.roomNumber;
+                $scope.roomError = true;
                 $("#OneAtATimeModal").click();
             }
         },
