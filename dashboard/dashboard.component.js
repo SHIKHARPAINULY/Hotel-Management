@@ -1,6 +1,6 @@
-angular.module('HotelApp' , ['720kb.datepicker', 'factoryService']).component('buttonCtrl' , {
+angular.module('HotelApp' , ['720kb.datepicker', 'factoryService']).component('dashCtrl' , {
     restrict:'E',
-    templateUrl:'button/button.component.html',
+    templateUrl:'dashboard/dashboard.component.html',
     bindings : {
         showRoom : '<'
     },
